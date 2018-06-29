@@ -1,0 +1,190 @@
+<!-- START CREATE PRODUCT -->
+<div class="reveal var_narrow" id="modal_create_product" data-reveal>
+    <div class="reveal_header">
+        <h1>Add Product</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <form class="mod_form" [formGroup]="productForm">
+            <div class="row">
+                <div class="column small-12">
+                    <label>Name *
+                        <input formControlName="name" type="text" required>
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12 offset-bottom-small" *ngIf="shoppingLocations?.length > 0">
+                    <label>Location *
+                        <select [ngModel]="shoppingLocations[0].id" formControlName="shoppingLocation" required>
+                            <option *ngFor="let shoppingLocation of shoppingLocations;" [value]="shoppingLocation.id">
+                                {{ shoppingLocation.name }}
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12 offset-bottom-small">
+                    <label>Price *
+                        <input formControlName="price" type="number" min="0" required>
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12 offset-bottom-small">
+                    <button (click)="isLoading === false ? addProduct(): null;" type="submit" [ngClass]="{loading:isLoading === true}" class="mod_button var_submit offset-right-small">
+                        <div class="load-circle"></div>
+                        <ng-container *ngIf="isLoading === false">Add</ng-container>
+                    </button>
+                    <button #closeAfterCreateButton class="mod_button var_grey" data-close>Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END CREATE PRODUCT -->
+
+<!-- START EDIT PRODUCT -->
+<div class="reveal var_narrow" id="modal_edit_product" data-reveal>
+    <div class="reveal_header">
+        <h1>Edit "{{ product.name }}"</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <form class="mod_form" [formGroup]="productForm" *ngIf="product">
+            <div class="row">
+                <div class="column small-12">
+                    <label>Name *
+                        <input [ngModel]="product.name" formControlName="name" type="text" required>
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12 offset-bottom-small">
+                    <label>Location *
+                        <select [ngModel]="product.shoppingLocation.id" formControlName="shoppingLocation" required>
+                            <option *ngFor="let shoppingLocation of shoppingLocations" [value]="shoppingLocation.id">
+                                {{ shoppingLocation.name }}
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12 offset-bottom-small">
+                    <label>Price *
+                        <input [ngModel]="product.price | number:'2.2'" formControlName="price" type="number" required>
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12 offset-bottom-small">
+                    <button (click)="isLoading === false ? updateProduct(): null;" type="submit" [ngClass]="{loading:isLoading === true}" class="mod_button var_submit offset-right-small">
+                        <div class="load-circle"></div>
+                        <ng-container *ngIf="isLoading === false">Update</ng-container>
+                    </button>
+                    <button #closeAfterEditButton class="mod_button var_grey" data-close>Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END EDIT PRODUCT -->
+
+<!-- START DELETE PRODUCT -->
+<div class="reveal var_narrow" id="modal_delete_product" data-reveal>
+    <div class="reveal_header">
+        <h1>Remove "{{ product.name }}"</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <div class="row">
+            <div class="column small-12 offset-bottom-big">
+                <p>Do you really want to remove "{{ product.name }}" ?</p>
+            </div>
+            <div class="column small-12">
+                <button (click)="isLoading === false ? deleteProduct(product.id): null;" [ngClass]="{loading:isLoading === true}" class="mod_button offset-right-small">
+                    <div class="load-circle"></div>
+                    <ng-container *ngIf="isLoading === false">Remove</ng-container>
+                </button>
+                <button #closeAfterDeleteButton class="mod_button var_grey" data-close>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DELETE PRODUCT -->
+
+<!-- START VIEW HISTORY MODAL -->
+<div class="history reveal var_narrow" id="modal_product_history" data-reveal>
+    <div class="reveal_header">
+        <h1>{{product.name}} History</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <div class="row">
+            <div class="column small-12 offset-bottom-big">
+                <table class="mod_table">
+                    <thead>
+                    <tr>
+                        <th width="100">Date, Time</th>
+                        <th width="100" class="show-for-b-small">Participant</th>
+                        <th width="100">Entry Type</th>
+                        <th width="50">View Difference</th>
+                        <th width="50" class="show-for-b-small">View Record</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let history of product.history">
+                        <td>{{ history.timestamp | date:'dd.MM.yyyy, HH:mm:ss' }}</td>
+                        <td class="show-for-b-small">{{ history.participantInvoking }}</td>
+                        <td>{{ history.type }}</td>
+                        <td class="table_options">
+                            <i class="material-icons" *ngIf="history.difference" (click)="difference = history.difference" data-open="modal_view_difference">visibility</i>
+                        </td>
+                        <td class="table_options">
+                            <i class="material-icons" (click)="transaction = history" data-open="modal_view_transaction">view_array</i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="column small-12">
+                <button #closeAfterDeleteButton class="mod_button var_grey" data-close>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END VIEW HISTORY MODAL -->
+
+<!-- START VIEW TRANSACTION MODAL -->
+<div class="history reveal var_narrow" id="modal_view_transaction" data-reveal>
+    <div class="reveal_header">
+        <h1>{{product.name}} History</h1>
+        <i class="material-icons" data-open="modal_product_history">close</i>
+    </div>
+    <div class="reveal_content">
+        <div class="row">
+            <div class="column small-12 offset-bottom-big">
+                <pre>{{transaction | json}}</pre>
+            </div>
+            <div class="column small-12">
+                <button #closeAfterDeleteButton class="mod_button var_grey"  data-open="modal_product_history">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END VIEW TRANSACTION MODAL -->
+
+<!-- START VIEW DIFFERENCE MODAL -->
+<div class="history reveal var_narrow" id="modal_view_difference" data-reveal>
+    <div class="reveal_header">
+        <h1>{{product.name}} History</h1>
+        <i class="material-icons" data-open="modal_product_history">close</i>
+    </div>
+    <div class="reveal_content">
+        <div class="row">
+            <div class="column small-12 offset-bottom-big">
+                <pre *ngIf="difference">{{difference | json}}</pre>
+            </div>
+            <div class="column small-12">
+                <button #closeAfterDeleteButton class="mod_button var_grey" data-open="modal_product_history">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END VIEW DIFFERENCE MODAL -->

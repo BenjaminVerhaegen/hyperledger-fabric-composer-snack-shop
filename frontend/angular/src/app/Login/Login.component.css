@@ -1,0 +1,61 @@
+.card-upload > label {
+    text-transform: none;
+}
+
+.card-upload > label > input{
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.loader-gif {
+    max-width: 16%;
+}
+
+.login_status {
+    margin-bottom: 0;
+}
+
+.upload-button {
+    margin-top: 0;
+}
+
+
+a.loading, button.loading {
+    cursor: not-allowed;
+    background-color: #A20D3B;
+}
+
+a.loading > .load-circle, button.loading > .load-circle {
+    border: 3px solid #B2B2B2; /* grey */
+    border-top: 3px solid #A20D3B;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+
+div.loading {
+    margin-top: 30px;
+    text-align: center;
+    width: 100%;
+}
+
+div.loading > .load-circle {
+    border: 14px solid #B2B2B2; /* grey */
+    border-top: 14px solid #ce073f;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#homeLink {
+    display: none;
+}

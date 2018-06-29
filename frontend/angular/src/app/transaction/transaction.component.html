@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="column small-12">
+        <div class="content-element">
+            <div class="mod_card" data-equalizer-watch>
+                <div class="card_header">
+                    <h2>Transactions</h2>
+                </div>
+                <div class="card_content">
+                    <table class="mod_table" *ngIf="transactions?.length > 0; else noTransactionsFound">
+                        <thead>
+                            <tr>
+                                <th width="200">Date, Time</th>
+                                <th width="200">Entry Type</th>
+                                <th width="200" class="show-for-b-small">Participant</th>
+                                <th width="50" class="show-for-b-small">View Record</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let transaction of pagedTransactions">
+                                <td>{{ transaction.transactionTimestamp | date:'dd.MM.yyyy, HH:mm:ss' }}</td>
+                                <td>{{ transaction.transactionType }}</td>
+                                <td class="show-for-b-small">{{ transaction.participantInvoking }}</td>
+                                <td class="table_options show-for-b-small">
+                                    <i class="material-icons" (click)="passTransactionRecord(transaction);" data-open="modal_view_record">view_array</i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div [ngClass]="{loading:isLoading === true}">
+                        <div class="load-circle"></div>
+                    </div>
+                    <div class="pagination" *ngIf="transactions?.length > pagedTransactions?.length">
+                        <i class="material-icons mod_button" [ngClass]="{disabled:pager.currentPage === 1}" (click)="setPage(pager.currentPage - 1)">navigate_before</i>
+                        <i class="material-icons mod_button" [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="setPage(pager.currentPage + 1)">navigate_next</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noTransactionsFound>
+    <p>No transactions found!</p>
+</ng-template>

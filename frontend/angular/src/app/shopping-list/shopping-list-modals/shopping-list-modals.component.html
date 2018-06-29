@@ -1,0 +1,45 @@
+<!-- START SETTLE SHOPPINGLIST MODAL  -->
+<div class="reveal var_narrow" id="modal_settle_shoppinglist" data-reveal>
+    <div class="reveal_header">
+        <h1>Settle shopping list</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <div class="row">
+            <div class="column small-12 offset-bottom-big">
+                <p>Do you really want to settle the shopping list? This resets the shopping list and debits the affected users with the corresponding amounts.</p>
+            </div>
+            <div class="column small-12">
+                <button class="mod_button offset-right-small" (click)="isLoading === false ? finishShopping() : null" [ngClass]="{loading:isLoading === true}">
+                    <div class="load-circle"></div>
+                    <ng-container *ngIf="isLoading === false">Settle</ng-container>
+                </button>
+                <button #closeAfterOffset class="mod_button var_grey" data-close>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END SETTLE SHOPPINGLIST MODAL -->
+
+<!-- START DELETE SHOPPINGLIST MODAL -->
+<div class="reveal var_narrow" id="modal_delete_list" data-reveal>
+    <div class="reveal_header">
+        <h1>Reset shopping list</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <div class="row">
+            <div class="column small-12 offset-bottom-big">
+                <p>Do you really want to reset the shopping list? As a result, nothing will be charged and all orders will be removed from the list.</p>
+            </div>
+            <div class="column small-12">
+                <button class="mod_button offset-right-small" (click)="isLoading === false ? resetShoppingList() : null" [ngClass]="{loading:isLoading === true}">
+                    <div class="load-circle"></div>
+                    <ng-container *ngIf="isLoading === false">Reset</ng-container>
+                </button>
+                <button #closeAfterReset class="mod_button var_grey" data-close>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DELETE SHOPPINGLIST MODAL -->

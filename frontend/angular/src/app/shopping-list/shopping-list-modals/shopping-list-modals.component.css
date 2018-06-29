@@ -1,0 +1,19 @@
+button.loading {
+    cursor: not-allowed;
+    background-color: #A20D3B;
+}
+
+button.loading > .load-circle {
+    border: 3px solid #B2B2B2; /* grey */
+    border-top: 3px solid #A20D3B;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

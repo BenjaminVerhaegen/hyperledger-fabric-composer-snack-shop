@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="column small-12">
+        <div class="content-element">
+            <!-- CONTENT ELEMENT 'Card' -->
+            <div class="mod_card" data-equalizer-watch>
+                <div class="card_header">
+                    <h2>My orders</h2>
+                    <h2 class="var_additional hide-for-b-small">{{ totalPrice | number:'2.2' }} CHF</h2>
+                    <h2 class="var_additional show-for-b-small">Total: {{ totalPrice | number:'2.2' }} CHF</h2>
+                </div>
+                <div class="card_content">
+                    <table class="mod_table" *ngIf="shoppingList.orders?.length > 0; else noOrders">
+                        <thead>
+                        <tr>
+                            <th width="250">Product</th>
+                            <th width="150" class="show-for-b-small">Location</th>
+                            <th width="150" class="show-for-b-small">Price</th>
+                            <th width="50">Amount</th>
+                            <th width="50" class="table_options">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let order of shoppingList.orders">
+                            <ng-container *ngIf="order.user.email === currentUser.email">
+                                <td>{{ order.product.name }}</td>
+                                <td class="show-for-b-small">{{ order.product.shoppingLocation.name }}</td>
+                                <td class="show-for-b-small">{{ (order.amount * order.product.price) | number:'2.2' }} CHF</td>
+                                <td>{{ order.amount }}</td>
+                                <td class="table_options">
+                                    <i class="material-icons" (click)="passOrderedProduct(order.product);" data-open="modal_delete">delete_forever</i>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button class="mod_button pull-right offset-top" data-open="modal_create_order">Order a product</button>
+                </div>
+            </div>
+            <!-- CONTENT ELEMENT 'Card' end -->
+        </div>
+    </div>
+</div>
+
+<ng-template #noOrders>
+    <p>You have no orders</p>
+</ng-template>

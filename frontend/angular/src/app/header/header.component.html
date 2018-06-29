@@ -1,0 +1,41 @@
+<!-- CONTENT ELEMENT 'Header' -->
+<ng-container *ngIf="currentUser">
+    <div class="mod_header">
+        <div class="mod_logo">
+            <h1 class="show-for-semi-large">4_znueni</h1>
+            <h1 class="show-for-small hide-for-semi-large var_small">4</h1>
+        </div>
+        <div class="header_inner">
+            <h2>{{ currentPageTitle }}</h2>
+            <div class="header_icons">
+                <i class="material-icons" data-open="modal_create_order">add_circle_outline</i>
+            </div>
+        </div>
+    </div>
+    <!-- CONTENT ELEMENT 'Header' end -->
+
+    <!-- CONTENT ELEMENT 'Header' -->
+    <div class="mod_header var_mobile">
+        <div class="mod_logo">
+            <h1>4_znueni</h1>
+        </div>
+        <i class="material-icons open-mobile-nav">menu</i>
+        <i class="material-icons close-mobile-nav is-hidden">close</i>
+    </div>
+    <!-- CONTENT ELEMENT 'Header' end -->
+
+    <div class="mod_mobile-navigation is-hidden">
+        <div class="mobile-navigation_section main">
+            <ng-container *ngTemplateOutlet="navigation"></ng-container>
+        </div>
+    </div>
+
+    <div class="mod_quicknav">
+        <div class="quicknav_info">
+            {{ currentUser.firstName }} {{ currentUser.lastName }} (<a href="#">ausloggen</a>)
+        </div>
+        <div class="quicknav_icons">
+            <i class="material-icons" data-open="modal_create_order">add_circle_outline</i>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="column small-12">
+        <div [ngClass]="{loading:isLoading === true}">
+            <div class="load-circle"></div>
+        </div>
+        <div class="mod_login" *ngIf="!isUserAuthenticated">
+            <div class="row">
+                <div class="colum small-12">
+                    <div class="login_header">
+                        <h1>4_znueni</h1>
+                        <div *ngIf="!errorMessage">You are not logged in! Use Google to login.
+                        </div>
+                        <div class="login_status" *ngIf="errorMessage">{{ errorMessage }}</div>
+                    </div>
+                </div>
+                <div class="column small-12">
+                    <a (click)="loginInProgress === false ? showLoginInProgress(): null;" [attr.href]="authenticationUrl" class="mod_button" [ngClass]="{loading:loginInProgress === true}">
+                        <div class="load-circle"></div>
+                        <ng-container *ngIf="!loginInProgress">Login</ng-container>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <form class="mod_login" (ngSubmit)="importCard($event)" *ngIf="isUserAuthenticated && !isUserLoggedIn && !isLoading">
+            <div class="row">
+                <div class="colum small-12">
+                    <div class="login_header">
+                        <h1>4_znueni</h1>
+                        <div *ngIf="!errorMessage">Laden Sie Ihre Card in Ihr Wallet. Datei-Format: (.card)</div>
+                        <div class="login_status" *ngIf="errorMessage">{{ errorMessage }}</div>
+                    </div>
+                </div>
+                <div class="column small-12 card-upload">
+                    <label>
+                        <input type="file" placeholder="Upload file" accept=".card">
+                    </label>
+                </div>
+                <div class="column small-12">
+                    <button class="mod_button upload-button" type="submit" [ngClass]="{loading:loginInProgress === true}">
+                        <div class="load-circle"></div>
+                        <ng-container *ngIf="!loginInProgress">Login</ng-container>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<a #home href="/home" id="homeLink">home</a>
