@@ -1,0 +1,52 @@
+# Hyperledger Fabric files            #
+#######################################
+backend/fabric/bin
+backend/fabric/channel-artifacts
+backend/fabric/crypto-config
+backend/fabric/crypto-config.yaml
+backend/fabric/configtx.yaml
+backend/fabric/ledger
+
+# Docker generated files              #
+#######################################
+backend/fabric/docker-compose-base/docker-compose-ca-base.yaml
+backend/fabric/docker-compose.yaml
+backend/fabric/docker-compose-cli.yaml
+
+# Hyperledger Composer                #
+#######################################
+composer-logs
+backend/composer/fabric-network/crypto-config
+backend/composer/cards/*.card
+backend/composer/network-archives/*.bna
+backend/composer/.composer
+
+# rest-server                         #
+#######################################
+backend/rest-server/.composer
+backend/rest-server/.mongodb
+
+# IDE folder                          #
+#######################################
+.idea
+
+# OS generated files                  #
+#######################################
+.DS_Store*
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Include all .htaccess & .gitkeep    #
+#######################################
+!.htaccess
+!.gitkeep
+
+# Angular                             #
+#######################################
+frontend/Angular/*.metadata.json
+frontend/Angular/*.map.js
+
+
