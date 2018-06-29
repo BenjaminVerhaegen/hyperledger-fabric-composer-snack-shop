@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="column small-12">
+        <div class="content-element">
+            <!-- CONTENT ELEMENT 'Card' -->
+            <div class="mod_card" data-equalizer-watch="">
+                <div class="card_header">
+                    <h2>Products</h2>
+                </div>
+                <div class="card_content">
+                    <table class="mod_table" *ngIf="products?.length > 0; else noProductsFound">
+                        <thead>
+                            <tr>
+                                <th width="300">Product</th>
+                                <th width="100" class="show-for-b-medium">Location</th>
+                                <th width="100" class="show-for-b-small">Price</th>
+                                <th width="50" class="table_options">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of products">
+                                <td>{{ product.name }}</td>
+                                <td class="show-for-b-medium">{{ product.shoppingLocation.name }}</td>
+                                <td class="show-for-b-small">{{ product.price | number:'2.2' }} CHF</td>
+                                <td class="table_options">
+                                    <i (click)="passProduct(product);" class="material-icons" data-open="modal_product_history">history</i>
+                                    <i (click)="passProduct(product);" class="material-icons" data-open="modal_edit_product">mode_edit</i>
+                                    <i (click)="passProduct(product);" class="material-icons" data-open="modal_delete_product">delete_forever</i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="mod_button pull-right offset-top" data-open="modal_create_product">Add product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noProductsFound>
+    <p>No Products found</p>
+</ng-template>

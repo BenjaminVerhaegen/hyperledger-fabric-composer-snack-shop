@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="column small-12">
+        <div class="content-element">
+            <div class="mod_card" data-equalizer-watch>
+                <div class="card_header">
+                    <h2>User settings</h2>
+                </div>
+                <div class="card_content">
+                    <form class="mod_form" [formGroup]="userForm">
+                        <div class="row">
+                            <div class="column small-12 b-medium-6">
+                                <label>Username *
+                                    <input type="text" value="{{ currentUser.email }}" required readonly>
+                                </label>
+                            </div>
+                            <div class="column small-12 b-medium-4 offset-bottom-small">
+                                <label for="img_upload-loggedUser" class="mod_button form_upload">profile picture  (coming soon)</label>
+                                <input type="file" id="img_upload-loggedUser" class="show-for-sr">
+                            </div>
+                            <div class="column small-12 b-medium-6 offset-bottom-small">
+                                <label>First name *
+                                    <input [ngModel]="currentUser.firstName" formControlName="firstName" type="text">
+                                </label>
+                            </div>
+                            <div class="column small-12 b-medium-6 offset-bottom-small">
+                                <label>Last name *
+                                    <input [ngModel]="currentUser.lastName" formControlName="lastName" type="text">
+                                </label>
+                            </div>
+                            <fieldset class="column small-12 b-medium-6 offset-bottom-small">
+                                <label>Gender *</label>
+                                <input [ngModel]="currentUser.gender" formControlName="gender" id="male-loggedUser" type="radio" name="gender"
+                                       value="M">
+                                <label for="male-loggedUser">Male</label>
+                                <input [ngModel]="currentUser.gender" formControlName="gender" id="female-loggedUser" type="radio" name="gender"
+                                       value="F">
+                                <label for="female-loggedUser">Female</label>
+                            </fieldset>
+                            <div class="column small-12 b-medium-6 offset-bottom-small" *ngIf="currentUser.isAdmin">
+                                <label>
+                                    Balance: {{ currentUser.balance | number:'2.2' }} CHF
+                                    <div class="header_icons">
+                                        <i class="material-icons" (click)="addToBalance();">add_circle_outline</i>
+                                        <i class="material-icons" (click)="removeFromBalance();">remove_circle_outline</i>
+                                    </div>
+                                    <label *ngIf="showPayInField === true && showPayOutField === false">
+                                        How much would you like to deposit? *
+                                        <input formControlName="payIn" type="number" placeholder="00.00">
+                                    </label>
+                                    <label *ngIf="showPayInField === false && showPayOutField === true">
+                                        How much would you like to pay out? *
+                                        <input formControlName="payOut" type="number" placeholder="00.00">
+                                    </label>
+                                </label>
+                            </div>
+                            <div class="column small-12 b-medium-6 offset-bottom-small">
+                                <button (click)="isLoading === false ? updateUser() : null" type="submit" class="mod_button var_submit offset-right-small" [ngClass]="{loading:isLoading === true}">
+                                    <div class="load-circle"></div>
+                                    <ng-container *ngIf="isLoading === false">Update</ng-container>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

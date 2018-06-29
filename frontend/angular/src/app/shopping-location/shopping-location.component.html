@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="column small-12">
+        <div class="content-element">
+            <!-- CONTENT ELEMENT 'Card' -->
+            <div class="mod_card" data-equalizer-watch="">
+                <div class="card_header">
+                    <h2>Shopping location</h2>
+                </div>
+                <div class="card_content">
+                    <table class="mod_table" *ngIf="shoppingLocations?.length > 0; else noLocationsFound">
+                        <thead>
+                            <tr>
+                                <th width="300">Name</th>
+                                <th width="200" class="show-for-b-medium">Street</th>
+                                <th width="200" class="show-for-b-small">Zip / City</th>
+                                <th width="100" class="table_options">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let shoppingLocation of shoppingLocations">
+                                <td>{{ shoppingLocation.name }}</td>
+                                <td class="show-for-b-medium">{{ shoppingLocation.street }}</td>
+                                <td class="show-for-b-small">{{ shoppingLocation.zip }}</td>
+                                <td class="table_options">
+                                    <i (click)="passShoppingLocation(shoppingLocation);" class="material-icons" data-open="modal_edit_shopping_location">mode_edit</i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="mod_button pull-right offset-top" data-open="modal_create_shopping_location">Add shopping location</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noLocationsFound>
+    <p>No shopping location found</p>
+</ng-template>

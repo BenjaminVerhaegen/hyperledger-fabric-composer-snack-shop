@@ -1,0 +1,36 @@
+<div class="row" data-equalizer>
+    <div class="column b-small-12 medium-6 large-4">
+        <div class="content-element">
+            <div class="mod_card var_highlight var_blue">
+                <i class="material-icons">
+                    credit_card
+                </i>
+                <h3>Balance</h3>
+                <p>{{ currentUser.balance | number: '2.2' }} CHF</p>
+                <div class="card_category-border"></div>
+            </div>
+        </div>
+    </div>
+    <div class="column b-small-12 medium-6 large-4 show-for-medium">
+        <div class="content-element">
+            <div class="mod_card var_highlight var_blue">
+                <i class="material-icons">shopping_basket</i>
+                <h3>Last ordered</h3>
+                <p>(coming soon)</p>
+                <div class="card_category-border"></div>
+            </div>
+        </div>
+    </div>
+    <div class="column b-small-12 medium-6 large-4 show-for-medium">
+        <div class="content-element">
+            <div class="mod_card var_highlight var_blue">
+                <i class="material-icons">account_balance</i>
+                <h3>Money Spending (Total)</h3>
+                <p>(coming soon)</p>
+                <div class="card_category-border"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-order></app-order>
+<app-shopping-list></app-shopping-list>

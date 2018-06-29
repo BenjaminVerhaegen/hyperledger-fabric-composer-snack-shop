@@ -1,0 +1,179 @@
+<!-- START DEACTIVATE USER MODAL -->
+<div class="reveal var_narrow" id="modal_deactivate-user" data-reveal>
+    <div class="reveal_header">
+        <h1>{{ user.isActive ? 'Deactivate' : 'Activate' }} "{{ user.firstName + ' ' + user.lastName }}"</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <div class="row">
+            <div class="column small-12 offset-bottom-big">
+                <p>Do you really want to {{ user.isActive ? 'deactivate' : 'activate' }} "{{ user.firstName + ' ' + user.lastName }}" ?</p>
+            </div>
+            <div class="column small-12">
+                <button (click)="isLoading === false ? changeUserStatus(user.email, user.isActive) : null" [ngClass]="{loading:isLoading === true}" class="mod_button offset-right-small">
+                    <div class="load-circle"></div>
+                    <ng-container *ngIf="isLoading === false">{{ user.isActive ? 'Deactivate' : 'Activate' }}</ng-container>
+                </button>
+                <button #closeAfterDeactivateButton class="mod_button var_grey" data-close>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DEACTIVATE USER MODAL -->
+
+<!-- START DELETE USER MODAL -->
+<div class="reveal var_narrow" id="modal_delete-user" data-reveal>
+    <div class="reveal_header">
+        <h1>Delete "{{ user.firstName + ' ' + user.lastName }}"</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <div class="row">
+            <div class="column small-12 offset-bottom-big">
+                <p>Do you really want to delete "{{ user.firstName + ' ' + user.lastName }}" ?</p>
+            </div>
+            <div class="column small-12">
+                <button (click)="isLoading === false ? deleteUser(user.email) : null" [ngClass]="{loading:isLoading === true}" class="mod_button offset-right-small">
+                    <div class="load-circle"></div>
+                    <ng-container *ngIf="isLoading === false">Delete</ng-container>
+                </button>
+                <button #closeAfterDeleteButton class="mod_button var_grey" data-close>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DELETE USER MODAL -->
+
+<!-- START ADD USER MODAL -->
+<div class="reveal" id="modal_create-user" data-reveal>
+    <div class="reveal_header">
+        <h1>Add user</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <form class="mod_form" [formGroup]="userForm">
+            <div class="row">
+                <div class="column small-12 b-medium-6">
+                    <label>Username *
+                        <input formControlName="email" type="email" required>
+                    </label>
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>Role *
+                        <select (change)="onSelectRole($event.target);">
+                            <option [value]="false" selected>User</option>
+                            <option [value]="true">Admin</option>
+                        </select>
+                    </label>
+                </div>
+                <fieldset class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>Gender *</label>
+                    <input id="male-new" type="radio" name="gender"
+                           value="M" checked>
+                    <label for="male-new">Male</label>
+                    <input formControlName="gender" id="female-new" type="radio" name="gender"
+                           value="F">
+                    <label for="female-new">Female</label>
+                </fieldset>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>First name *
+                        <input formControlName="firstName" type="text">
+                    </label>
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>Last name *
+                        <input formControlName="lastName" type="text">
+                    </label>
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>Balance *
+                        <input formControlName="balance" min="0" type="number">
+                    </label>
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <button (click)="isLoading === false ? createUser() : null" type="submit" class="mod_button var_submit offset-right-small" [ngClass]="{loading:isLoading === true}">
+                        <div class="load-circle"></div>
+                        <ng-container *ngIf="isLoading === false">Add</ng-container>
+                    </button>
+                    <button #closeAfterCreateButton class="mod_button var_grey" data-close>Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END ADD USER MODAL -->
+
+<!-- START EDIT USER MODAL -->
+<div class="reveal" id="modal_edit-user" data-reveal>
+    <div class="reveal_header">
+        <h1>Edit "{{ user.firstName + ' ' + user.lastName }}"</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <form class="mod_form" [formGroup]="userForm">
+            <div class="row">
+                <div class="column small-12 b-medium-6">
+                    <label>Username *
+                        <input type="text" value="{{ user.email }}" required readonly>
+                    </label>
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>Role *
+                        <select (change)="onSelectRole($event.target);">
+                            <option [value]="false" [attr.selected]="user.isAdmin ? null : 'selected'">User</option>
+                            <option [value]="true" [attr.selected]="user.isAdmin ? 'selected' : null">Admin</option>
+                        </select>
+                    </label>
+                </div>
+                <fieldset class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>Gender *</label>
+                    <input [ngModel]="user.gender" formControlName="gender" id="male" type="radio" name="gender"
+                           value="M">
+                    <label for="male">Male</label>
+                    <input [ngModel]="user.gender" formControlName="gender" id="female" type="radio" name="gender"
+                           value="F">
+                    <label for="female">Female</label>
+                </fieldset>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>First name *
+                        <input [ngModel]="user.firstName" formControlName="firstName" type="text">
+                    </label>
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>Last name *
+                        <input [ngModel]="user.lastName" formControlName="lastName" type="text">
+                    </label>
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <label>
+                        Balance: {{ user.balance | number:'2.2' }} CHF
+                        <div class="header_icons">
+                            <i class="material-icons" (click)="addToBalance();">add_circle_outline</i>
+                            <i class="material-icons" (click)="removeFromBalance();">remove_circle_outline</i>
+                        </div>
+                        <label *ngIf="showPayInField === true && showPayOutField === false">
+                            How much would you like to deposit? *
+                            <input formControlName="payIn" type="number" placeholder="00.00">
+                        </label>
+                        <label *ngIf="showPayInField === false && showPayOutField === true">
+                            How much would you like to pay out? *
+                            <input formControlName="payOut" type="number" placeholder="00.00">
+                        </label>
+                    </label>
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                </div>
+                <div class="column small-12 b-medium-6 offset-bottom-small">
+                    <button (click)="isLoading === false ? updateUser() : null" type="submit" class="mod_button var_submit offset-right-small" [ngClass]="{loading:isLoading === true}">
+                        <div class="load-circle"></div>
+                        <ng-container *ngIf="isLoading === false">Update</ng-container>
+                    </button>
+                    <button #closeAfterEditButton class="mod_button var_grey" data-close>Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END EDIT USER MODAL -->

@@ -1,0 +1,80 @@
+<!-- START ADD SHOPPING LOCATION -->
+<div class="reveal var_narrow" id="modal_create_shopping_location" data-reveal>
+    <div class="reveal_header">
+        <h1>Add shopping location</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <form class="mod_form" [formGroup]="shoppingLocationForm">
+            <div class="row">
+                <div class="column small-12">
+                    <label>Name *
+                        <input formControlName="name" type="text">
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12">
+                    <label>Street, No. (optional)
+                        <input formControlName="street" type="text">
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12">
+                    <label>Zip, city (optional)
+                        <input formControlName="zip" type="text">
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12"></div>
+                <div class="column small-12 offset-bottom-small">
+                    <button (click)="isLoading === false ? addShoppingLocation() : null" type="submit" class="mod_button var_submit offset-right-small" [ngClass]="{loading:isLoading === true}">
+                        <div class="load-circle"></div>
+                        <ng-container *ngIf="isLoading === false">Add</ng-container>
+                    </button>
+                    <button #closeAfterCreateButton class="mod_button var_grey" data-close>Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END ADD SHOPPING LOCATION -->
+
+<!-- START EDIT SHOPPING LOCATION -->
+<div class="reveal var_narrow" id="modal_edit_shopping_location" data-reveal>
+    <div class="reveal_header">
+        <h1>Edit "{{ shoppingLocation.name }}"</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <form class="mod_form" [formGroup]="shoppingLocationForm">
+            <div class="row">
+                <div class="column small-12">
+                    <label>Name *
+                        <input [ngModel]="shoppingLocation.name" formControlName="name" type="text">
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12">
+                    <label>Street, No. (optional)
+                        <input [ngModel]="shoppingLocation.street" formControlName="street" type="text">
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12 offset-bottom-small">
+                    <label>Zip, city (optional)
+                        <input [ngModel]="shoppingLocation.zip" formControlName="zip" type="text">
+                    </label>
+                </div>
+                <div class="column small-12"></div>
+                <div class="column small-12 offset-bottom-small">
+                    <button (click)="isLoading === false ? updateShoppingLocation() : null" type="submit" class="mod_button var_submit offset-right-small" [ngClass]="{loading:isLoading === true}">
+                        <div class="load-circle"></div>
+                        <ng-container *ngIf="isLoading === false">Update</ng-container>
+                    </button>
+                    <button #closeAfterEditButton class="mod_button var_grey" data-close>Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END EDIT SHOPPING LOCATION -->

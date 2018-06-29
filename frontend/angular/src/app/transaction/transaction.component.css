@@ -1,0 +1,39 @@
+.pagination {
+    width: 100%;
+    text-align: center;
+    margin-top: 45px;
+}
+
+.pagination > .mod_button {
+    cursor: pointer;
+}
+
+.pagination > .disabled {
+    background-color: #777;
+    cursor: not-allowed;
+}
+
+.loading {
+    margin-top: 30px;
+    text-align: center;
+    width: 100%;
+}
+
+.loading > .load-circle {
+    border: 14px solid #B2B2B2; /* grey */
+    border-top: 14px solid #ce073f;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.table_options {
+    text-align: left;
+}

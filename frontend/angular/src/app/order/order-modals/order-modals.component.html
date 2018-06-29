@@ -1,0 +1,60 @@
+<!-- START CREATE ORDER MODAL -->
+<div class="reveal" id="modal_create_order" data-reveal>
+    <div class="reveal_header">
+        <h1>Order</h1>
+        <i class="material-icons" #closeAfterOrder data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <form class="mod_select-2" [formGroup]="orderForm">
+            <div class="row">
+                <div class="column small-11">
+                    <label for="product_name">Product
+                        <select [ngModel]="allProducts[0].id" formControlName="product" *ngIf="allProducts?.length > 0">
+                            <option *ngFor="let product of allProducts" [value]="product.id">{{ product.name }}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="column small-1">
+                    <label for="product_amount">Amount
+                        <input type="number" formControlName="amount" min="1" value="1" required>
+                    </label>
+                </div>
+                <div class="column small-12 text-center">
+                    <div class="reveal_add_product_to_order">
+
+                    </div>
+                </div>
+                <div class="column small-12">
+                    <button type="submit" (click)="isLoading === false ? order() : null" class="mod_button pull-right" [ngClass]="{loading:isLoading === true}">
+                        <div class="load-circle"></div>
+                        <ng-container *ngIf="isLoading === false">Order</ng-container>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END CREATE ORDER MODAL -->
+
+<!-- START DELETE ORDERED PRODUCT MODAL -->
+<div class="reveal var_narrow" id="modal_delete" data-reveal>
+    <div class="reveal_header">
+        <h1>Remove product "{{ orderedProduct.name }}"</h1>
+        <i class="material-icons" data-close>close</i>
+    </div>
+    <div class="reveal_content">
+        <div class="row">
+            <div class="column small-12 offset-bottom-big">
+                <p>Do you really want to remove the product "{{ orderedProduct.name }}" from your shopping list?</p>
+            </div>
+            <div class="column small-12">
+                <button [ngClass]="{loading:isLoading === true}" class="mod_button offset-right-small" (click)="isLoading === false ? deleteOrderedProduct() : null">
+                    <div class="load-circle"></div>
+                    <ng-container *ngIf="isLoading === false">Remove</ng-container>
+                </button>
+                <button #closeAfterDeleteOrder class="mod_button var_grey" data-close>Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DELETE ORDERED PRODUCT MODAL -->

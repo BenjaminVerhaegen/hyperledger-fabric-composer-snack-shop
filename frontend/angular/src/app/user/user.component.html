@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="column small-12">
+        <div class="content-element">
+            <div class="mod_card" data-equalizer-watch>
+                <div class="card_header">
+                    <h2>Users</h2>
+                </div>
+                <div class="card_content">
+                    <table class="mod_table" *ngIf="users?.length > 0; else noUsersFound">
+                        <thead>
+                        <tr>
+                            <th width="200">Username</th>
+                            <th width="300" class="show-for-b-x-large">Full name</th>
+                            <th width="150" class="show-for-medium">Role</th>
+                            <th width="150">Balance</th>
+                            <th width="50" class="table_options show-for-b-small">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users" [ngClass]="{'is-deactivated':user.isActive === false}">
+                                <td *ngIf="user.email === currentUser.email">{{ user.email }} (you)</td>
+                                <td *ngIf="user.email !== currentUser.email">{{ user.email }}</td>
+                                <td class="show-for-b-x-large">{{ user.firstName + ' ' + user.lastName }}</td>
+                                <td class="show-for-medium">{{ user.isAdmin === true ? "Admin" : "User" }}</td>
+                                <td>{{ user.balance | number:'2.2' }} CHF</td>
+                                <td class="table_options show-for-b-small">
+                                    <i *ngIf="user.email !== currentUser.email" (click)="passUser(user);" class="material-icons" data-open="modal_edit-user">mode_edit</i>
+                                    <i *ngIf="user.email !== currentUser.email" (click)="passUser(user);" [ngClass]="{'var_activated':user.isActive}" class="material-icons" data-open="modal_deactivate-user">lightbulb_outline</i>
+                                    <i *ngIf="user.email !== currentUser.email" (click)="passUser(user);" class="material-icons" data-open="modal_delete-user">delete_forever</i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="mod_button pull-right offset-top" data-open="modal_create-user">Add user</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noUsersFound>
+    <p>No users found</p>
+</ng-template>

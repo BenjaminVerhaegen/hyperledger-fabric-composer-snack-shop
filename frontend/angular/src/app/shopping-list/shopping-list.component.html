@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="column small-12">
+        <div class="content-element">
+            <div class="mod_card" *ngIf="shoppingList;  else noShoppingList" data-equalizer-watch>
+                <div class="card_header">
+                    <h2>Shopping list</h2>
+                    <h2 class="var_additional hide-for-b-small">{{ shoppingList.totalPrice | number:'2.2' }} CHF</h2>
+                    <h2 class="var_additional show-for-b-small">Total: {{ shoppingList.totalPrice | number:'2.2' }} CHF</h2>
+                </div>
+                <div class="card_content">
+                    <table class="mod_table var_shopping-list" *ngIf="shoppingList.orders?.length > 0; else noCurrentOrders">
+                        <thead>
+                        <tr>
+                            <th width="300">Product</th>
+                            <th width="150">Location</th>
+                            <th width="100" class="show-for-b-small">Price</th>
+                            <th width="200">User</th>
+                            <th width="50">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let order of shoppingList.orders">
+                            <td>{{ order.product.name }}</td>
+                            <td>{{ order.product.shoppingLocation.name }}</td>
+                            <td class="show-for-b-small">{{ (order.amount * order.product.price) | number:'2.2' }} CHF</td>
+                            <td>{{ order.user.firstName }}</td>
+                            <td>{{ order.amount }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <ng-container *ngIf="currentUser.isAdmin">
+                        <button class="mod_button var_right pull-right offset-top offset-left-small" data-open="modal_delete_list" *ngIf="shoppingList.orders?.length > 0">Reset</button>
+                        <button class="mod_button pull-right offset-top" data-open="modal_settle_shoppinglist" *ngIf="shoppingList.orders?.length > 0">Settle</button>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noShoppingList>
+    <div class="mod_card" data-equalizer-watch>
+        <div class="card_header">
+            <h2>Shopping list</h2>
+        </div>
+        <div class="card_content">
+            <ng-container *ngTemplateOutlet="noCurrentOrders"></ng-container>
+        </div>
+    </div>
+</ng-template>
+<ng-template #noCurrentOrders>
+    <p>No Orders</p>
+</ng-template>
